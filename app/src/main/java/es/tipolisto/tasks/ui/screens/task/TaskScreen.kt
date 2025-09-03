@@ -1,6 +1,9 @@
 package es.tipolisto.tasks.ui.screens.task
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
@@ -55,6 +59,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import es.tipolisto.tasks.MainActivity
 import es.tipolisto.tasks.model.Task
 import es.tipolisto.tasks.ui.components.CircularProgressBar
 import es.tipolisto.tasks.ui.components.MyAlertDialog
@@ -337,14 +342,11 @@ fun ViewContent(
             }//final de si las tareas es null
         }//Final del column general
     }//Final de si la lista de listas es nula
+    //Si la base de datos esta vacia, volvemos al MainActivity
     else{
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "Cierra el programa y vuelve a abrirlo, listas creadas")
-        }
+        val activity= LocalActivity.current as Activity
+        activity.finish()
+        context.startActivity(Intent(context, MainActivity::class.java))
     }
 
 
